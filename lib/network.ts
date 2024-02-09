@@ -7,25 +7,26 @@ interface NetworkProps {
 }
 
 export class Network extends Construct {
+  public props: NetworkProps;
   public sg: SecurityGroup;
   public vpc: Vpc;
 
-  constructor(scope: Construct, id: string, { domain }: NetworkProps) {
+  constructor(scope: Construct, id: string, props: NetworkProps) {
     super(scope, id);
+    this.props = props;
 
+    const { domain } = props;
     this.vpc = new Vpc(this, `${idPrefix}-${domain}`, {
       availabilityZones: ['us-east-1a'],
       natGateways: 0,
       subnetConfiguration: [
         {
           cidrMask: 28,
-          mapPublicIpOnLaunch: false,
           name: `${idPrefix}-${domain}-private-1`,
           subnetType: SubnetType.PRIVATE_ISOLATED,
         },
       ],
     });
-
     this.sg = new SecurityGroup(this, `${idPrefix}-${domain}-sg-1`, {
       allowAllOutbound: true,
       description: '',

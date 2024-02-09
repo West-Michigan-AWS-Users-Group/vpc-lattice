@@ -1,12 +1,13 @@
 {
   "name": "vpc-lattice",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "bin": {
     "vpc-lattice": "bin/vpc-lattice.js"
   },
   "scripts": {
     "build": "tsc",
     "cdk": "cdk",
+    "cdk:synth": "cdk synth",
     "prettier:check": "prettier --check .",
     "prettier:write": "prettier --write .",
     "test": "jest",
